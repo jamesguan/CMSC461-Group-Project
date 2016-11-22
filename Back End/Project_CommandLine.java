@@ -62,10 +62,15 @@ public class Project_CommandLine {
 
 	    try {
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("select table_name from user_tables");
-		while ( rs.nextLine().trim() ) {
-		    String name = rs.getString(1);
-		    System.out.println(name);
+		ResultSet rs = stmt.executeQuery(query);
+		ResultSetMetaData metadata = rs.getMetaData();
+		int columnCount = metadata.getColumnCount();
+		while ( rs.next() ) {
+		    String row = "";
+		    for (int i = 1; i <= columnCount; i++) {
+			row += rs.getString(i) + ", ";          
+		    }
+		    System.out.println(row);
 		}
 	    }
 
@@ -74,19 +79,23 @@ public class Project_CommandLine {
 		se.printStackTrace();
 		System.exit(1);
 	    }
-	    try{
-		con.close();
-	    }
-	    catch (SQLException se ){
-		System.out.println("Unable to close connection");
-		se.printStackTrace();
-		System.exit(1);
-	    }
 
 	    System.out.println("Please enter a query to execute or \"quit\" to quit: ");
+	    query = "";
             query = userInput.nextLine().trim();
 	    /* end of method main, exit to system */
 	}
+
+	try{
+	    con.close();
+	}
+	catch (SQLException se ){
+	    System.out.println("Unable to close connection");
+	    se.printStackTrace();
+	    System.exit(1);
+	}
+
+
     }
 
     /***********************************
@@ -126,7 +135,6 @@ public class Project_CommandLine {
 	/*BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
-
 	if (tablename == "office"){
 	    String[][] attributes = new String[1000][3];
 	}
@@ -143,16 +151,12 @@ public class Project_CommandLine {
 	    System.out.println("Invalid table name.");
 	    return 1;
 	}
-
         try {
             br = new BufferedReader(new FileReader(filename));
-
 	    int lineNumber = 0;
             while ((line = br.readLine()) != null) {
-
                 attributes[lineNumber] = line.split(cvsSplitBy);
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
 	    System.out.println("Invalid file name.");
@@ -172,7 +176,6 @@ public class Project_CommandLine {
 		}
             }
         }
-
 	*/
 
 	return 0;
