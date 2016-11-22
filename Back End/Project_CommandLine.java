@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.List;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.nio.charset.Charset;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -47,12 +48,16 @@ public class Project_CommandLine {
 	System.out.println("Please enter the full file path of a CSV file to bulk load data: ");
 	Scanner userInput = new Scanner(System.in);
 	String filename = userInput.nextLine().trim();
-	String tablename = "";
+	Integer result = bulkLoad(filename, args);
+	
+	while (!result.equals(0)){
+	    System.out.println();
+	    System.out.println("Please enter the full file path of a CSV file to bulk load data: ");
+	    filename = userInput.nextLine().trim();
+	    result = bulkLoad(filename, args);
+	}
 
-	Integer result = bulkLoad(filename, tablename);
-	//
-
-	System.out.println("");
+	System.out.println();
 
 	String query = "";
 	System.out.println("Please enter a query to execute or \"quit\" to quit: ");
@@ -130,33 +135,43 @@ public class Project_CommandLine {
      *** Method bulkLoad
      ***
      ********************************/
-    public static Integer bulkLoad(String filename, String tablename){
+    public static Integer bulkLoad(String filename, String[] args){
 
-	/*BufferedReader br = null;
+	BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
-	if (tablename == "office"){
-	    String[][] attributes = new String[1000][3];
-	}
-	else if (tablename == "customeragency"){
-	    String[][] attributes = new String[1000][5];
-	}
-	else if (tablename == "customeragency_has_rentalagreement"){
-	    String[][] attributes = new String[1000][2];
-	}
-	else if (tablename == "rentalagreement"){
-	    String[][] attributes = new String[1000][4];
-	}
-	else{
-	    System.out.println("Invalid table name.");
-	    return 1;
-	}
         try {
             br = new BufferedReader(new FileReader(filename));
 	    int lineNumber = 0;
+	    String[] commands = new String[1000];
             while ((line = br.readLine()) != null) {
-                attributes[lineNumber] = line.split(cvsSplitBy);
+                commands = line.split(cvsSplitBy);
             }
+	    
+	    Connection con = getConnection(args);
+
+	    for (String command : commands){
+
+		try {
+		    Statement stmt = con.createStatement();
+		    ResultSet rs = stmt.executeQuery(command);
+      		}
+		catch (SQLException se ){
+                    System.out.println("Unable to list result");
+                    se.printStackTrace();
+                    System.exit(1);
+                }
+
+		try{
+		    con.close();
+		}
+		catch (SQLException se ){
+		    System.out.println("Unable to close connection");
+		    se.printStackTrace();
+		    System.exit(1);
+		}
+	    }	
+	
         } catch (FileNotFoundException e) {
             e.printStackTrace();
 	    System.out.println("Invalid file name.");
@@ -176,7 +191,6 @@ public class Project_CommandLine {
 		}
             }
         }
-	*/
 
 	return 0;
     }
