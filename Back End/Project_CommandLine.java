@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.util.Scanner; 
+import java.util.Scanner;
 
 public class Project_CommandLine {
 
@@ -25,7 +25,7 @@ public class Project_CommandLine {
 	 *** Open Oracle JDBC driver
 	 *** on error, exit
 	 **********************************/
-	
+
 	try {
 	    Class.forName("oracle.jdbc.driver.OracleDriver");
 	}
@@ -46,9 +46,9 @@ public class Project_CommandLine {
 	//This part does not work yet
 	System.out.println("Please enter the full file path of a CSV file to bulk load data: ");
 	Scanner userInput = new Scanner(System.in);
-	String filename = userInput.next();
+	String filename = userInput.nextLine().trim();
 	String tablename = "";
-	
+
 	Integer result = bulkLoad(filename, tablename);
 	//
 
@@ -56,19 +56,19 @@ public class Project_CommandLine {
 
 	String query = "";
 	System.out.println("Please enter a query to execute or \"quit\" to quit: ");
-	query = userInput.next();
+	query = userInput.nextLine().trim();
 
 	while (!query.equals("quit")){
-	    
+
 	    try {
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("select table_name from user_tables");
-		while ( rs.next() ) {
+		while ( rs.nextLine().trim() ) {
 		    String name = rs.getString(1);
 		    System.out.println(name);
 		}
 	    }
-	    
+
 	    catch (SQLException se ){
 		System.out.println("Unable to list result");
 		se.printStackTrace();
@@ -84,7 +84,7 @@ public class Project_CommandLine {
 	    }
 
 	    System.out.println("Please enter a query to execute or \"quit\" to quit: ");
-            query = userInput.next();
+            query = userInput.nextLine().trim();
 	    /* end of method main, exit to system */
 	}
     }
@@ -122,7 +122,7 @@ public class Project_CommandLine {
      ***
      ********************************/
     public static Integer bulkLoad(String filename, String tablename){
-	
+
 	/*BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -149,7 +149,7 @@ public class Project_CommandLine {
 
 	    int lineNumber = 0;
             while ((line = br.readLine()) != null) {
-		
+
                 attributes[lineNumber] = line.split(cvsSplitBy);
             }
 
@@ -174,11 +174,11 @@ public class Project_CommandLine {
         }
 
 	*/
-	
+
 	return 0;
     }
 
-    
+
 
     /* end of class */
 }
