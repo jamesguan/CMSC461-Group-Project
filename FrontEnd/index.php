@@ -3,9 +3,9 @@
 
   <head>
 
-   <title>SOAP System Web Application</title>
+	 <title>SOAP System Web Application</title>
 
-   <link rel="stylesheet" type="text/css" href="grp_css.css">
+	 <link rel="stylesheet" type="text/css" href="grp_css.css">
 
   </head>
 
@@ -19,7 +19,12 @@
 
     <h1>System for Occupancy Agreement Processing (SOAP)<br/>Application</h1>
 
+    <!-- if line 27 (i.e. the line with "$_SERVER["PHP_SELF]", don't forget to take out the # before 
+        the echo htmlspecialchars too) is uncommented and line 26 is commented instead, testing using 
+        MAMP for instance reveals that the the app captures the selected table from each dropdown and 
+        stores it in the designated variable based on the type of query.-->
     <form name="queryEntries" action="result.php" method="post">
+    <!--form name="queryEntries" action="<?php #echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"--> 
 
     Choose Data to Load: <button id="upload_button">Upload</button>
 
@@ -28,9 +33,7 @@
       <div class="centerText">
 
         <h2>Simple Query</h2>
-        <i>(Simple queries are any SQL queries that do not have any joins or set operations)</i><br/>
-
-        Form your simple query using the dropdown menus below: <br/><br/>
+       (Simple queries are any SQL queries that are of the following form: <em>select</em> attributeName <em>from</em> tableName)<br/><br/>
 
         Choose your table:<br/>
         <select name="simple_Query_Table" class="dropdownTableOptions">
@@ -53,7 +56,7 @@
 
       <div class="centerText">
         <h2>Complex Query</h2>
-        <i>(Complex queries are any SQL queries that involve joins or set operations)</i><br/>
+        (Complex queries are any SQL queries that involve more SQL actions than selecting attributes from a single table.)<br/><br/>
 
         Form your complex query using the dropdown menus below:<br/><br/>
 
@@ -86,6 +89,14 @@
   </div>
 
  </form>
+
+ <?php 
+
+  echo $s_tableSelected;
+  echo $c_table1Selected; 
+  echo $c_table2Selected; 
+
+ ?>
 
  </body>
 </html>

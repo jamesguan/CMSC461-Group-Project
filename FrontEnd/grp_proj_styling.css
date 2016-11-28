@@ -15,6 +15,13 @@ h2 {
 	border-radius: 15em;
     border: none;
     color: white;
+    position: relative;
+}
+
+#file_space {
+
+    text-align: center;
+
 }
 
 #main_layout {
@@ -30,7 +37,6 @@ h2 {
     margin: auto;
 
 }
-
 
 .submit_button {
 
