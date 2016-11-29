@@ -1,0 +1,1 @@
+insert into student values('00002', 'Aberdeen', 'Music', 93);insert into student values('00003', 'Lamb', 'Music', 94);insert into student values('00004', 'Unduli', 'Music', 28);insert into student values('00005', 'Bigby', 'Music', 26);
