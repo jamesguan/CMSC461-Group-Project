@@ -1,0 +1,31 @@
+Transactions have been included in the project to account for cases where a CSV file has multiple statements and not all of them are valid. The goal here is to have it such that whenever a user uploads a CSV file to the program, either all of the file's statements get executed or none of them do. 
+
+It can likely be further tested, but it appears functional at this time. 
+
+The two CSV files, sample2.csv and sample3.csv were used to test that the transactional feature is at least functional at this time. 
+
+1. To test, go through the normal procedures to access the Java program. 
+
+2. Then, when prompted to type in a CSV file name, first enter the sample2.csv file. This file has an insertion statement that is 
+   invalid. 
+
+3. When this file name is entered, the program should recognize that it contains an error and display a message indicating that the 
+   transaction could not actually be committed.
+
+   The program also says that the transaction has been rolled back. This means that none of the other insertion statements, regardless of whether or not the program
+   says other statements were inserted as a result of this sample2.csv file were actually inserted into any tables. The state of the tables
+   has been rolled back to its state before sample2.csv’s insertion statements were started. 
+
+
+4. To see that the table has remained the same, go back through the procedures to launch the Java program.
+   4.1 Select or create a simple CSV file when prompted for a CSV file.
+   4.2 When prompted for a query, type “select * from student.“
+   4.3 The student table should not contain any of the attempted inserted tuples from the sample2.csv file.
+
+5. To actually insert the tuples from the sample2.csv file, go back through the the procedures to launch the Java program.
+   5.1 Select the sample3.csv file when prompted for a CSV file.
+   5.2 When prompted for a query, type “select * from student.“
+   5.3 Now the student table should display all of the attempted inserted tuples from the sample3.csv file. This file contained almost the same insertion statements
+       as the sample2.csv file only a correction was made to the one insertion statement that made the whole transaction from the sample2.csv file invalid and incapable  
+       of being committed as it was. 
+
