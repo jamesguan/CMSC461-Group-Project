@@ -1,0 +1,1 @@
+insert into student values('00013', 'Drey', 'Comp. Sci.', 77);insert into student values('00014', 'Hames', 'Comp. Sci.', 84);insert into student values('00015', 'Jimster', ‘Comp. Sci.’, 86);insert into student values('00016', 'Gene', 'Comp. Sci.',93);
