@@ -1,0 +1,23 @@
+Different Exceptions and Ways to Trigger Them in Project 
+1. ClassNotFoundException
+   -description/trigger: Likely that the jar file is not located in the path specified or the jar file is named incorrectly (e.g. type in invalid setenv CLASSPATH "/usr/lib/oracle/
+    12.1/client64/lib/ojdbc.jar:." instead of setenv CLASSPATH "/usr/lib/oracle/12.1/client64/lib/ojdbc7.jar:.”)
+
+2. SQLException 
+   -description/trigger: enter in an invalid query (e.g. select tree from student)
+   -description/trigger: can’t close connection to the Oracle DB
+   -description/trigger: unable to bulk load data from selected CSV file (e.g. CSV file specified 
+    does not exist) 
+   -description/trigger: .csv file specified is not formatted properly. (e.g. file with a CSV 
+    extension that contains no commas, only pound signs, @ symbols and numbers)
+
+3. FileNotFoundException
+   -description/trigger: invalid file type used when prompted for a CSV file
+
+4. IOException
+   -description/triggers: different scenarios (Reading a network file and got disconnected, reading   
+    a local file that was no longer available, using some stream to read data and some 
+    other process closed the stream, trying to read/write a file but don't have 
+    permission, trying to write to a file but disk space was no longer available.) 
+    -examples from http://stackoverflow.com/questions/13216148/java-what-throws-an-ioexception
+
