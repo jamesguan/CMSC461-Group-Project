@@ -1,11 +1,26 @@
-CREATE TABLE CustomerAgency 
-  (`agency_id` INT,
-  `agency_name` VARCHAR(45) NULL,
-  `address` VARCHAR(45) NULL,
-  `agency_city` VARCHAR(45) NULL,
-  `phone_num` INT(10) NULL,
-  PRIMARY KEY (`agency_id`)
+
+-- -----------------------------------------------------
+-- Table soap.db.RentalAgreement
+-- -----------------------------------------------------
+CREATE TABLE RentalAgreement 
+  (
+  rental_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  amount DECIMAL(15,2) NULL,
+  end_date VARCHAR(10) NULL,
+  Office_office_name VARCHAR(45) NULL,
+    FOREIGN KEY (Office_office_name)
+    REFERENCES Office (office_name)
+   
   );
+
+CREATE TABLE CustomerAgency 
+  (agency_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  agency_name VARCHAR(45) NULL,
+  address VARCHAR(45) NULL,
+  agency_city VARCHAR(45) NULL,
+  phone_num INT(10) NULL
+  );
+
 
 -- -----------------------------------------------------
 -- Table `soap.db`.`Office`
@@ -15,20 +30,6 @@ CREATE TABLE Office
   `office_city` VARCHAR(45) NULL,
   `sqfootage` INT NULL,
   PRIMARY KEY (`office_name`)
-  );
-
--- -----------------------------------------------------
--- Table `soap.db`.`RentalAgreement`
--- -----------------------------------------------------
-CREATE TABLE RentalAgreement 
-  (
-  `rental_id` INT,
-  `amount` DECIMAL(15,2) NULL,
-  `end_date` VARCHAR(10) NULL,
-  `Office_office_name` VARCHAR(45) NULL,
-  PRIMARY KEY (`rental_id`)
-    FOREIGN KEY (`Office_office_name`)
-    REFERENCES `Office` (`office_name`)
   );
 
 -- -----------------------------------------------------
