@@ -25,7 +25,7 @@ public class Project_CommandLine {
 
     public static void main(String[] args) {
 	/*********************************
-	 *** Open Oracle JDBC driver
+	 *** Open SQLite JDBC driver
 	 *** on error, exit
 	 **********************************/
 
@@ -34,7 +34,6 @@ public class Project_CommandLine {
 	}
 
 	catch(ClassNotFoundException ex) {
-	    //If the message was printed out here (System.out.println(ex.getMessage())), ex.getMessage() would show "oracle.jdbc.driver.OracleDriver".
 	    ex.getMessage();
 	    System.out.println("Check to make sure that the ojdbc7.jar file is in the lib folder of this application's files.\nAlso check to make sure that the CLASSPATH of this required jar is typed in correctly.");
 	    System.out.println("\nThe program is now exiting...");
@@ -83,7 +82,7 @@ public class Project_CommandLine {
 	    try {
 		Statement stmt = con.createStatement();
 		if (query.charAt(0) == 's'){
-		    System.out.println(query);
+		    
 		    ResultSet rs = stmt.executeQuery(query);
 		    ResultSetMetaData metadata = rs.getMetaData();
 		    int columnCount = metadata.getColumnCount();
@@ -97,7 +96,6 @@ public class Project_CommandLine {
 		}
 		else{
 		    stmt.executeUpdate(query);
-		    System.out.println(query);
 		    System.out.println("Executed successfully.");
 		}
 	    }
@@ -139,16 +137,16 @@ public class Project_CommandLine {
 	    System.err.println("usage :: java cmsc461 <username> <passwd>");
 	    System.exit(1);
 	}
-	String url = "jdbc:oracle:thin:@studentdb-oracle.gl.umbc.edu:1521/STUDENTDB";
+       
 	Connection con = null;
 	try {
 	    con = DriverManager.getConnection("jdbc:sqlite:" + args[0]);
-	    System.out.println("Connected to Oracle.");
+	    System.out.println("Connected to SQLite3.");
 	}
 	catch (SQLException se ){
 	    //If the message was printed out here, (System.out.println(se.getMessage())), it would be of the following syntax:            \<error_message>:<extra_info>
 	    se.getMessage();
-	    System.out.println("Unable to connect to Oracle.\n");
+	    System.out.println("Unable to connect to SQLite3.\n");
 	    System.out.println("The program is now exiting...");
 	    System.exit(1);
 	}
