@@ -51,20 +51,23 @@ public class Project_CommandLine {
 
 	Connection con = null;
 	try {
-	    con = DriverManager.getConnection("jdbc:sqlite:UMBC.db");
+	    con = DriverManager.getConnection("jdbc:sqlite:soap.db");
 	} catch(Exception e){
 	    System.out.println(e);
 	}
 
-	//This part does not work yet
-	System.out.println("Please enter the full file path of a CSV file to bulk load data: ");
+	System.out.println("Please enter the full file path of a CSV file to bulk load \ndata or type \"skip\" to start querying: ");
 	Scanner userInput = new Scanner(System.in);
 	String filename = userInput.nextLine().trim();
-	Integer result = bulkLoad(filename, args);
+	
+	Integer result = 0;
+	if (!filename.equals("skip")){
+	    result = bulkLoad(filename, args);
+	}
 
 	while (!result.equals(0)){
 	    System.out.println();
-	    System.out.println("Please enter the full file path of a CSV file to bulk load data: ");
+	    System.out.println("Please enter the full file path of a CSV file to bulk load \ndata or type \"skip\" to start querying: ");
 	    filename = userInput.nextLine().trim();
 	    result = bulkLoad(filename, args);
 	}
@@ -80,7 +83,7 @@ public class Project_CommandLine {
 	    try {
 		Statement stmt = con.createStatement();
 		if (query.charAt(0) == 's'){
-		
+		    System.out.println(query);
 		    ResultSet rs = stmt.executeQuery(query);
 		    ResultSetMetaData metadata = rs.getMetaData();
 		    int columnCount = metadata.getColumnCount();
@@ -177,13 +180,12 @@ public class Project_CommandLine {
 
 		for (String command : commands){
 
-		    System.out.println(command);
-		    Statement stmt = con.createStatement();
+       		    Statement stmt = con.createStatement();
 		    stmt.executeUpdate(command);
 		}
 
 		con.commit();
-
+		System.out.println("The data from the CSV file should now be loaded into the specified table(s).\nConstruct queries to verify the data was successfully loaded.");
 	    }
 	    catch (SQLException se){
 		//If the message was printed out here, (System.out.println(se.getMessage())), it would be of the following syntax:\<error_message>:<extra_info>
